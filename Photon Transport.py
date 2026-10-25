@@ -62,7 +62,7 @@ def photon_absorption(W,mu_a,mu_t):
 def calculate_scatter_angles(g):
     """
     This function calculates the polar angle cosine and the azimuthal angle
-    for photon scattering using the Henyey-Greenstein phase function.
+    for photon scattering using the Henyey-Greenstein phase function
         
     Parameters:
         g: anisotropy factor of the medium
@@ -149,5 +149,19 @@ def photon_movement(x, y, z, u_x, u_y, u_z, s):
     new_z = z + u_z * s
     
     return new_x , new_y , new_z
+
+def photon_termination(W, m, threshold):
+    
+    if W <= threshold:
+        survival_probability = 1.0 / m
+        
+        if np.random.random() < survival_probability:
+            return W * m, True
+        
+        else:
+            return 0.0, False
+            
+    return W, True
+
     
 
