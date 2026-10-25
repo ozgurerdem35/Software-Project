@@ -126,3 +126,28 @@ def update_directions(u_x, u_y, u_z, cos_theta, phi):
         
     return new_u_x , new_u_y , new_u_z
 
+def photon_movement(x, y, z, u_x, u_y, u_z, s):
+    
+    """
+    This function calculates the new spatial coordinates of the photon 
+    after taking a step
+        
+    Parameters:
+        x: current spatial coordinate in the x-axis
+        y: current spatial coordinate in the y-axis
+        z: current spatial coordinate in the z-axis
+        u_x: current direction cosine in the x-axis
+        u_y: current direction cosine in the y-axis
+        u_z: current direction cosine in the z-axis
+        s: calculated step size for the photon's movement
+            
+    Returns:
+        The updated spatial coordinates of the photon"""
+    
+    new_x = x + u_x * s
+    new_y = y + u_y * s
+    new_z = z + u_z * s
+    
+    return new_x , new_y , new_z
+    
+
