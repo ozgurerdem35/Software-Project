@@ -50,7 +50,8 @@ def photon_absorption(W,mu_a,mu_t):
             
     Returns:
         The deposited energy (delta_W) and the updated weight (new_W) of the 
-        photon"""
+        photon
+    """
     
     
     delta_W = W * (mu_a / mu_t)
@@ -68,7 +69,8 @@ def calculate_scatter_angles(g):
         g: anisotropy factor of the medium
             
     Returns:
-        The cosine of the polar angle and the azimuthal angle """
+        The cosine of the polar angle and the azimuthal angle
+    """
     
     xi_1 = np.random.random()
     
@@ -97,7 +99,8 @@ def update_directions(u_x, u_y, u_z, cos_theta, phi):
         phi: azimuthal scattering angle
             
     Returns:
-        The updated direction cosines of the photon"""
+        The updated direction cosines of the photon
+    """
     
     sin_theta = np.sqrt(max(0.0, 1.0 - cos_theta**2))
     
@@ -142,7 +145,8 @@ def photon_movement(x, y, z, u_x, u_y, u_z, s):
         s: calculated step size for the photon's movement
             
     Returns:
-        The updated spatial coordinates of the photon"""
+        The updated spatial coordinates of the photon
+    """
     
     new_x = x + u_x * s
     new_y = y + u_y * s
@@ -163,5 +167,21 @@ def photon_termination(W, m, threshold):
             
     return W, True
 
-    
+def normalize_direction(u_x, u_y, u_z):
+    """
+    This function renormalizes the direction cosines to unit length,
+    which corrects the drift caused by floating-point rounding errors
+ 
+    Parameters:
+        u_x, u_y, u_z : direction cosines of the photon
+ 
+    Returns:
+        The normalized direction cosines
+    """
+    norm = np.sqrt(u_x**2 + u_y**2 + u_z**2)
+
+    return u_x / norm, u_y / norm, u_z / norm
+
+
+
 
