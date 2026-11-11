@@ -223,7 +223,7 @@ def calculate_fresnel_reflectance(u_z, n1, n2):
 
     cos_theta_t = np.sqrt(max(0.0, 1.0 - sin_theta_t**2))
 
-    r_s = (n2*cos_theta_i - n1*cos_theta_t) / (n2*cos_theta_i - n1*cos_theta_t)
+    r_s = (n2*cos_theta_i - n1*cos_theta_t) / (n2*cos_theta_i + n1*cos_theta_t)
     
     r_p = (n1*cos_theta_i - n2*cos_theta_t) / (n1*cos_theta_i + n2*cos_theta_t)
 
