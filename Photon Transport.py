@@ -185,15 +185,50 @@ def normalize_direction(u_x, u_y, u_z):
 def calculate_specular_reflectance(n1, n2):
     """
     This function calculates the specular reflectance for a photon beam entering
-    Medium 2 from Medium 1 at normal incidence.
+    Medium 2 from Medium 1 at normal incidence
 
     Parameters:
         n1: refractive index of Medium 1
         n2: refractive index of Medium 2
 
     Returns:
-        The specular reflectance fraction (R_sp).
+        The specular reflectance fraction
     """
     return np.abs(((n1 - n2) / (n1 + n2))**2)
     
+
+def calculate_fresnel_reflectance(u_z, n1, n2):
+    """
+    This function calculates the Fresnel reflection probability for a photon hitting 
+    the boundary between Medium 2 and Medium 1 from inside Medium 2.
+
+    Parameters:
+        u_z: current direction cosine in the z-axis
+        n1: refractive index of Medium 1
+        n2: refractive index of Medium 2
+
+    Returns:
+        The Fresnel reflectance probability
+    """
+    cos_theta_i = abs(u_z)
+
+    if cos_theta_i > 0.99999:
+        return ((n2 - n1) / (n1 + n2))**2
+
+    sin_theta_i = np.sqrt(max(0.0, 1.0 - cos_theta_i**2))
+    sin_theta_t = (n2 / n1) * sin_theta_i
+
+    if sin_theta_t >= 1.0:
+        return 1.0
+
+    cos_theta_t = np.sqrt(max(0.0, 1.0 - sin_theta_t**2))
+
+    r_s = (n2*cos_theta_i - n1*cos_theta_t) / (n2*cos_theta_i - n1*cos_theta_t)
+    
+    r_p = (n1*cos_theta_i - n2*cos_theta_t) / (n1*cos_theta_i + n2*cos_theta_t)
+
+    return 0.5 * (r_s**2 + r_p**2)
+
+
+
         
