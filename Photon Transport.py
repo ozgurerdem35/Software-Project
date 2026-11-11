@@ -169,8 +169,7 @@ def photon_termination(W, m, threshold):
 
 def normalize_direction(u_x, u_y, u_z):
     """
-    This function renormalizes the direction cosines to unit length,
-    which corrects the drift caused by floating-point rounding errors
+    This function renormalizes the direction cosines to unit length
  
     Parameters:
         u_x, u_y, u_z : direction cosines of the photon
@@ -183,5 +182,18 @@ def normalize_direction(u_x, u_y, u_z):
     return u_x / norm, u_y / norm, u_z / norm
 
 
+def calculate_specular_reflectance(n1, n2):
+    """
+    This function calculates the specular reflectance for a photon beam entering
+    Medium 2 from Medium 1 at normal incidence.
 
+    Parameters:
+        n1: refractive index of Medium 1
+        n2: refractive index of Medium 2
 
+    Returns:
+        The specular reflectance fraction (R_sp).
+    """
+    return np.abs(((n1 - n2) / (n1 + n2))**2)
+    
+        
