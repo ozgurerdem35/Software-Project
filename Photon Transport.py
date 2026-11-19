@@ -164,7 +164,26 @@ def photon_movement(x, y, z, u_x, u_y, u_z, s):
     return new_x , new_y , new_z
 
 def photon_termination(W, m, threshold):
+    """
+    This function plays Russian roulette on a photon whose weight is low.
+    A photon with W <= threshold survives with probability 1/m and gets its
+    weight multiplied by m, otherwise it is killed. The expected weight is
+    conserved
+
+    Parameters:
+        W: current statistical weight of the photon packet
+        m: roulette multiplier
+        threshold: weight below which roulette is played
+
+    Returns:
+        (W, alive): the new weight and whether the photon is still alive
+    """
     
+    if m <= 1:
+        raise ValueError(f"m must be > 1, got {m}")
+    if threshold <= 0:
+        raise ValueError(f"threshold must be > 0, got {threshold}")
+        
     if W <= threshold:
         survival_probability = 1.0 / m
         
