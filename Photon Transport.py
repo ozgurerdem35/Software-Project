@@ -18,6 +18,9 @@ def total_interaction_coef(mu_a,mu_s):
     Return : 
         mu_t : Total interaction coefficient
     """
+    if mu_a < 0 or mu_s < 0:
+        raise ValueError(
+            f"mu_a and mu_s must be >= 0, got {mu_a} and {mu_s}")
     
     mu_t = mu_a + mu_s
     return mu_t
@@ -33,6 +36,9 @@ def step_size(mu_t):
       Return:
           s : step size 
     """
+    if mu_t <= 0:
+        raise ValueError(f"mu_t must be > 0, got {mu_t}")
+    
     xi = 1 - np.random.random()
     s = - (np.log(xi) / mu_t)
     
