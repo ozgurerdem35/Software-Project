@@ -19,8 +19,7 @@ def total_interaction_coef(mu_a,mu_s):
         mu_t : Total interaction coefficient
     """
     if mu_a < 0 or mu_s < 0:
-        raise ValueError(
-            f"mu_a and mu_s must be >= 0, got {mu_a} and {mu_s}")
+        raise ValueError(f"mu_a and mu_s must be >= 0, got {mu_a} and {mu_s}")
     
     mu_t = mu_a + mu_s
     return mu_t
