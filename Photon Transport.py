@@ -57,7 +57,11 @@ def photon_absorption(W,mu_a,mu_t):
         The deposited energy (delta_W) and the updated weight (new_W) of the 
         photon
     """
-    
+    if mu_t <= 0:
+        raise ValueError(f"mu_t must be > 0, got {mu_t}")
+    if mu_a < 0 or mu_a > mu_t:
+        raise ValueError(
+            f"mu_a must satisfy 0 <= mu_a <= mu_t, got {mu_a} and {mu_t}")    
     
     delta_W = W * (mu_a / mu_t)
     new_W = W - delta_W
@@ -215,6 +219,9 @@ def calculate_fresnel_reflectance(u_z, n1, n2):
     Returns:
         The Fresnel reflectance probability
     """
+    if n1 <= 0 or n2 <= 0:
+        raise ValueError(f"n1 and n2 must be > 0, got {n1} and {n2}")
+    
     cos_theta_i = abs(u_z)
 
     if cos_theta_i > 0.99999:
