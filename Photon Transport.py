@@ -186,8 +186,12 @@ def normalize_direction(u_x, u_y, u_z):
     Returns:
         The normalized direction cosines
     """
+    
     norm = np.sqrt(u_x**2 + u_y**2 + u_z**2)
-
+    
+    if norm == 0:
+        raise ValueError("Direction vector has zero length")
+        
     return u_x / norm, u_y / norm, u_z / norm
 
 
@@ -203,6 +207,9 @@ def calculate_specular_reflectance(n1, n2):
     Returns:
         The specular reflectance fraction
     """
+    if n1 <= 0 or n2 <= 0:
+        raise ValueError(f"n1 and n2 must be > 0, got {n1} and {n2}")
+        
     return np.abs(((n1 - n2) / (n1 + n2))**2)
     
 
