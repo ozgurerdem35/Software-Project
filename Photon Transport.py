@@ -80,6 +80,8 @@ def calculate_scatter_angles(g):
     Returns:
         The cosine of the polar angle and the azimuthal angle
     """
+    if not -1.0 < g < 1.0:
+        raise ValueError(f"g must satisfy -1 < g < 1, got {g}")
     
     xi_1 = np.random.random()
     
