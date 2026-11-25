@@ -7,6 +7,36 @@ Created on Tue Oct 20 17:45:54 2026
 
 import numpy as np
 
+def get_optical_properties(E_eV, table_energy, table_mu_a, table_mu_s,
+                           table_g, table_n):
+    """
+    This function interpolates the optical properties of the medium
+    at a given photon energy
+
+    Parameters:
+        E_eV : photon energy in electron volts
+        table_energy : energies of the table in eV, strictly ascending
+        table_mu_a : absorption coefficient at each table energy
+        table_mu_s : scattering coefficient at each table energy
+        table_g : anisotropy factor at each table energy
+        table_n : refractive index of the medium at each table energy
+
+    Returns:
+        absorption coefficient mu_a, scattering coefficient mu_s, 
+        anistropy factor g, refractive index of medium 2 n2.
+
+    """
+    table_energy = np.asarray(table_energy, dtype=float)
+
+    results = []
+    for c in (table_mu_a, table_mu_s, table_g, table_n):
+        c = np.asarray(c, dtype=float)
+        results.append(float(np.interp(E_eV, table_energy, c)))
+
+    mu_a, mu_s, g, n2 = results
+    return mu_a, mu_s, g, n2
+
+
 def total_interaction_coef(mu_a,mu_s):
     """
     This function calculates total interaction coefficient
