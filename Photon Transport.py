@@ -23,7 +23,7 @@ def get_optical_properties(E_eV, table_energy, table_mu_a, table_mu_s,
 
     Returns:
         absorption coefficient mu_a, scattering coefficient mu_s, 
-        anistropy factor g, refractive index of medium 2 n2.
+        anistropy factor g, refractive index of medium 2 n2
 
     """
     table_energy = np.asarray(table_energy, dtype=float)
@@ -299,6 +299,22 @@ def calculate_fresnel_reflectance(u_z, n1, n2):
 
     return 0.5 * (r_s**2 + r_p**2)
 
+def distance_to_boundary(z, u_z):
+    """
+    This function calculates the distance a photon has to travel along its
+    direction to reach the surface z = 0
 
+    Parameters:
+        z: current depth of the photon 
+        u_z: current direction cosine in the z-axis
+
+    Returns:
+        The distance to the surface, or infinity if the photon is moving
+        away from it or parallel to it
+    """
+    if u_z < 0:
+        return -z / u_z
+
+    return np.inf
 
         
